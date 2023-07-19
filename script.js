@@ -1,7 +1,6 @@
 let gameBoardElem;
 const gameBoard = ["", "", "", "", "", "", "", "", ""];
 let currentPlayer;
-const startBtn = document.getElementById("start-game");
 
 const titleEl = document.createElement("h1");
 titleEl.textContent = "Tic Tac Toe";
@@ -16,7 +15,7 @@ document.body.appendChild(subTitleEl);
 const Gameboard = (() => {
   //game board arrow function
   const makeGameBoardElem = () => {
-    const gameBoardElem = document.createElement("div");
+    gameBoardElem = document.createElement("div");
     gameBoardElem.classList.add("game-board"); //adding css class to gameboard
     return gameBoardElem;
   };
@@ -34,9 +33,11 @@ const Gameboard = (() => {
       document.body.removeChild(gameBoardElem); // remove old gameboard
     }
     gameBoardElem = makeGameBoardElem();
+
     for (let square = 0; square < 9; square++) {
       gameBoardElem.appendChild(makeSquareElem(square));
     }
+    
     currentPlayer = [0]; //initialize current player
     return document.body.appendChild(gameBoardElem);
   };
@@ -44,6 +45,7 @@ const Gameboard = (() => {
   return {
     render,
   };
+
 })(); //IIFE
 
 Gameboard.render(); //calling render game funtion inside Gameboard
@@ -60,7 +62,7 @@ const Game = (() => {
   let squareEl = document.getElementsByClassName("game-square"); // returns an array of all ements with specified class
   let players = [];
   let currentPlayer = "O";
-  let gameOver;
+
 
   players = [createPlayer("X"), createPlayer("O")]; // create player objects
 
@@ -116,7 +118,6 @@ const Game = (() => {
     }
 
     const allSquaresUsed = gameBoard.every((square) => square !== "");
-
     if (allSquaresUsed) {
       completeGame(`It's a draw!`);
     }
@@ -140,8 +141,6 @@ const completeGame = (message) => {
     document.body.removeChild(overlayElem);
     Gameboard.render();
   });
-
   overlayElem.appendChild(restartButtonElem);
-
   document.body.appendChild(overlayElem);
 };
